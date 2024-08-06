@@ -28,15 +28,18 @@ export const CategoryColumn = ({
    };
 
    return (
-      <div
-        onClick={onClick}
-        className={cn(
-          "flex items-center cursor-pointer hover:underline", 
-          !category && "text-rose-500",   
-        )}     
-      >
-        {!category && <TriangleAlert className="mr-2 size-4 shrink-0"/>}
-        {category || "uncategorized"}
-      </div>
+    <div
+    onClick={onClick}
+    className={cn(
+      "flex items-center cursor-pointer hover:underline", 
+      !category && "text-rose-500"
+    )}
+  >
+    <span className="flex flex-col-2 ml-auto text-right">
+    {!category && <TriangleAlert className="mr-2 size-4 shrink-0"/>}
+      {category || "לא מוגדר"}
+    </span>
+  </div>
+  
    )
 }

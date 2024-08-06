@@ -18,9 +18,9 @@ type Props = {
 };
 
 const options = [
-    "amount",
-    "payee",
-    "date",
+   {name: "סכום", value: "amount"},
+   {name: "מקבל התשלום", value: "payee"},
+   {name: "יום", value: "date"}
 ]
 
 export const TableHeadSelect = ({
@@ -41,23 +41,23 @@ export const TableHeadSelect = ({
                 currentSelection && "text-blue-500"
               )}
             >
-                <SelectValue placeholder="Skip" />
+                <SelectValue placeholder="דלג" />
             </SelectTrigger>
              <SelectContent>
                 <SelectItem value="skip">דלג</SelectItem>
                   {options.map((option, index) => {
                       const disabled =
-                        Object.values(selectedColumns).includes(option)
-                        && selectedColumns[`column_${columnIndex}`] !== option;
+                        Object.values(selectedColumns).includes(option.value)
+                        && selectedColumns[`column_${columnIndex}`] !== option.value;
 
                     return (
                       <SelectItem
                         key={index}
-                        value={option}
+                        value={option.value}
                         disabled={disabled}
                         className="capitalize"
                       >
-                        {option}
+                        {option.name}
                       </SelectItem>
                     )
                   })}

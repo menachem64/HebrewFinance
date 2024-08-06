@@ -12,7 +12,7 @@ export const useGetAccount = (id?: string) => {
             });
 
             if (!response.ok) {
-                throw new Error("Failed to fetch account");
+                throw new Error("הצגת החשבון נכשלה");
             }
             
             const { data } = await response.json();

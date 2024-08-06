@@ -17,7 +17,7 @@ app.onError((err, c) => {
         return err.getResponse();
     }
 
-    return c.json({ error: "Internal error" }, 500);
+    return c.json({ error: "שגיאה פנימית" }, 500);
 });
 
 const routes = app

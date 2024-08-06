@@ -13,7 +13,7 @@ export const useGetTransaction = (id?: string) => {
             });
 
             if (!response.ok) {
-                throw new Error("Failed to fetch transaction");
+                throw new Error("הצגת הפעולה נכשלה");
             }
             
             const { data } = await response.json();

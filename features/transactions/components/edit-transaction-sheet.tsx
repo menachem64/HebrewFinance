@@ -30,8 +30,8 @@ export const EditTransactionSheet = () => {
     const { isOpen, onClose, id } = useOpenTransaction();
 
     const [ConfirmDialog, confirm] = useConfirm(
-      "Are you sure?",
-      "You are about to delete this transaction"
+      "!זהירות",
+      "לחיצה על אישור תמחוק את הפעולה הזאת"
     )
 
     const transactionQuery = useGetTransaction(id);
@@ -116,10 +116,11 @@ export const EditTransactionSheet = () => {
            <SheetContent className="space-y-4">
              <SheetHeader>
                <SheetTitle>
-                 Edit Transaction
+                 עריכת פעולה
                </SheetTitle>
                   <SheetDescription>
-                    Edit an existing Transaction                  </SheetDescription>
+                   עריכה של הפעולה הנוכחית
+                  </SheetDescription>
               </SheetHeader>
               {isLoading
                 ? (

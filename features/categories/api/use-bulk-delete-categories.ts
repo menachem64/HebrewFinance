@@ -20,12 +20,12 @@ export const useBulkDeleteCategories = () => {
             return await response.json();
         },
         onSuccess: () => {
-            toast.success("Categories deleted");
+            toast.success("הקטגוריות נמחקו");
             queryClient.invalidateQueries({ queryKey: ["categories"]});
             queryClient.invalidateQueries({ queryKey: ["summary"]});
         },
         onError: () => {
-            toast.error("Failed to delete categories")
+            toast.error("מחיקת החשבונות נכשלו")
         }
     })
     return mutation;

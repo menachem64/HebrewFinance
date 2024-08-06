@@ -26,8 +26,8 @@ export const EditCategorySheet = () => {
     const { isOpen, onClose, id } = useOpenCategory();
 
     const [ConfirmDialog, confirm] = useConfirm(
-      "Are you sure?",
-      "You are about to delete this category."
+      "!זהירות",
+      "הפעולה תמחוק את הקטגוריה הזאת"
     )
 
     const categoryQuery = useGetCategory(id);
@@ -71,10 +71,10 @@ export const EditCategorySheet = () => {
            <SheetContent className="space-y-4">
              <SheetHeader>
                <SheetTitle>
-                 Edit category
+                 עריכת קטגוריה
                </SheetTitle>
                   <SheetDescription>
-                    Edit an existing category                
+                    עריכת הקטגוריה הנוכחית             
                   </SheetDescription>
               </SheetHeader>
               {isLoading

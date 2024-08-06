@@ -109,7 +109,7 @@ export const TransactionForm = ({
                   render={({ field }) => (
                     <FormItem>
                         <FormLabel>
-                            Account
+                            חשבון
                         </FormLabel>
                         <FormControl>
                             <Select
@@ -131,7 +131,7 @@ export const TransactionForm = ({
                   render={({ field }) => (
                     <FormItem>
                         <FormLabel>
-                           Category
+                           קטגוריה
                         </FormLabel>
                         <FormControl>
                             <Select
@@ -153,11 +153,11 @@ export const TransactionForm = ({
                   render={({ field }) => (
                     <FormItem>
                         <FormLabel>
-                           payee
+                           מקבל התשלום
                         </FormLabel>
                         <FormControl>
                             <Input
-                               placeholder="Add a payee"
+                               placeholder="הוסף מקבל תשלום"
                                disabled={disabled}
                                {...field}
                                />
@@ -172,7 +172,7 @@ export const TransactionForm = ({
                   render={({ field }) => (
                     <FormItem>
                         <FormLabel>
-                           amount
+                           סכום
                         </FormLabel>
                         <FormControl>
                             <AmountInput
@@ -191,14 +191,14 @@ export const TransactionForm = ({
                   render={({ field }) => (
                     <FormItem>
                         <FormLabel>
-                           Notes
+                        הערות  
                         </FormLabel>
                         <FormControl>
                             <Textarea
                                {...field}
                                value={field.value ?? ""}
                                disabled={disabled}
-                               placeholder="Optional notes"
+                               placeholder="...כתיבת הערה" 
                                />
                         </FormControl>
                     </FormItem>
@@ -206,7 +206,7 @@ export const TransactionForm = ({
                />
 
                <Button className="w-full" disabled={disabled}>
-                   {id ? "Save changes" : "Create transaction"}
+                   {id ? "שמירת שינויים" : "יצירת שינויים"}
                </Button>
                {!!id && (<Button
                  type="button"
@@ -216,7 +216,7 @@ export const TransactionForm = ({
                  variant="outline"
                >
                 <Trash className="size-4 mr-2"/>
-                Delete transaction
+               מחיקת פעולות
                </Button>
               )}
 

@@ -51,14 +51,14 @@ export const useSelectAccount = (
         <DialogContent>
             <DialogHeader>
                 <DialogTitle>
-                    Select Account
+                    בחירת חשבון
                 </DialogTitle>
                 <DialogDescription>
-                    Please select an account to continue.
+                    בחר חשבון על מנת להמשיך
                 </DialogDescription>
             </DialogHeader>
             <Select
-              placeholder="Select an account"
+              placeholder="בחר חשבון"
               options={accountOptions}
               onCreate={onCreatAccount}
               onChange={(value) => selectValue.current = value}
@@ -69,12 +69,12 @@ export const useSelectAccount = (
                   onClick={handleCancel}
                   variant="outline"
                 >
-                    Cancel
+                    ביטול
                 </Button>
                 <Button
                   onClick={handleConfirm}
                 >
-                    Confirm
+                    אישור
                 </Button>
             </DialogFooter>
         </DialogContent>

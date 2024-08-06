@@ -72,10 +72,10 @@ export const NewTransactionSheet = () => {
            <SheetContent className="space-y-4">
              <SheetHeader>
                <SheetTitle>
-                 New Transaction
+                 פעולה חדשה
                </SheetTitle>
                   <SheetDescription>
-                     add a new transactions
+                     הוספת פעולה חדשה
                   </SheetDescription>
               </SheetHeader>
               {isLoading

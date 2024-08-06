@@ -36,10 +36,10 @@ export const NewCategorySheet = () => {
            <SheetContent className="space-y-4">
              <SheetHeader>
                <SheetTitle>
-                 New Category
+                 קטגוריה חדשב
                </SheetTitle>
                   <SheetDescription>
-                     Create a new category to organize your transactions.
+                    יצירת קטגוריה חדשה כדי לארגן את הפעולות בחשבון
                   </SheetDescription>
               </SheetHeader>
               <CategoryForm onSubmit={onSubmit} disabled={mutation.isPending} defaultValues={{name: ""}}/>

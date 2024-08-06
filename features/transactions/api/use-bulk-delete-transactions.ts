@@ -20,12 +20,12 @@ export const useBulkDeleteTransactions = () => {
             return await response.json();
         },
         onSuccess: () => {
-            toast.success("Transactions deleted");
+            toast.success("הפעולות נמחקו");
             queryClient.invalidateQueries({ queryKey: ["transactions"]});
             queryClient.invalidateQueries({ queryKey: ["summary"]});
         },
         onError: () => {
-            toast.error("Failed to delete transactions")
+            toast.error("נכשל בלמחוק את הפעולות")
         }
     })
     return mutation;

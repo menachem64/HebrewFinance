@@ -17,7 +17,7 @@ const app = new Hono()
     const auth = getAuth(c);
 
     if (!auth?.userId) {
-        return c.json({ error: "unauthorized"}, 401)
+        return c.json({ error: "לא מוגדר"}, 401)
     }
     const data = await db.select({
         id: categories.id,
@@ -39,11 +39,11 @@ const app = new Hono()
     const { id } = c.req.valid("param");
 
     if (!id) {
-      return c.json({ error: "Missing id"}, 400);
+      return c.json({ error: "חסר מזהה"}, 400);
     }
 
     if (!auth?.userId) {
-      return c.json({ error: "Unauthorized"}, 401);
+      return c.json({ error: "לא מוגדר"}, 401);
     }
 
     const [data] = await db
@@ -60,7 +60,7 @@ const app = new Hono()
     );
 
     if (!data) {
-      return c.json({ error: "Not found" }, 404);
+      return c.json({ error: "לא נמצא" }, 404);
     }
 
     return c.json({ data });
@@ -76,7 +76,7 @@ const app = new Hono()
     const values = c.req.valid("json");
 
     if (!auth?.userId) {
-        return c.json({ error: "Unauthorized"}, 401)
+        return c.json({ error: "לא מוגדר"}, 401)
     }
 
     const [data] = await db.insert(categories).values({
@@ -101,7 +101,7 @@ const app = new Hono()
     const values = c.req.valid("json");
 
     if (!auth?.userId) {
-      return c.json({ error: "Unauthorized" }, 401);
+      return c.json({ error: "לא מוגדר" }, 401);
     }
 
     const data = await db
@@ -137,11 +137,11 @@ const app = new Hono()
       const values = c.req.valid("json");
 
       if (!id) {
-        return c.json({ error: "Missing id" }, 400);
+        return c.json({ error: "חסר מזהה" }, 400);
       }
 
       if (!auth?.userId){
-        return c.json({ error: "Unauthorized" }, 401)
+        return c.json({ error: "לא מוגדר" }, 401)
       }
 
       const [data] = await db
@@ -156,7 +156,7 @@ const app = new Hono()
         .returning();
 
         if (!data) {
-          return c.json({ error: "Not found" }, 404);
+          return c.json({ error: "לא נמצא" }, 404);
         }
 
         return c.json({ data });
@@ -176,11 +176,11 @@ const app = new Hono()
       const { id } = c.req.valid("param");
 
       if (!id) {
-        return c.json({ error: "Missing id" }, 400);
+        return c.json({ error: "חסר מזהה" }, 400);
       }
 
       if (!auth?.userId){
-        return c.json({ error: "Unauthorized" }, 401)
+        return c.json({ error: "לא מוגדר" }, 401)
       }
 
       const [data] = await db
@@ -196,7 +196,7 @@ const app = new Hono()
         });
 
         if (!data) {
-          return c.json({ error: "Not found" }, 404);
+          return c.json({ error: "לא נמצא" }, 404);
         }
 
         return c.json({ data });

@@ -51,7 +51,7 @@ export const ImportCard = ({
                 }
             }
 
-            if (value === "דלג") {
+            if (value === "skip") {
                 value = null;
             }
 
@@ -111,10 +111,10 @@ export const ImportCard = ({
         <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24">
           <Card className="broder-none drop-shadow-sm">
             <CardHeader className="gep-y-2 lg:flex-row lg:items-center lg:justify-between">
-               <CardTitle className="text-xl line-clamp-1">
-                   עלאת קובץ 
-               </CardTitle> 
                <div className="flex flex-col lg:flex-row gap-y-2 items-center gap-x-2">
+               <CardTitle className="text-xl line-clamp-1">
+                   <div className="flex lg:hidden"> עלאת קובץ </div>
+               </CardTitle> 
                  <Button 
                     onClick={onCancel} 
                     size="sm" 
@@ -132,6 +132,9 @@ export const ImportCard = ({
                      המשך
                  </Button>
                </div>
+               <CardTitle className="text-xl line-clamp-1">
+                   <div className="hidden lg:flex"> עלאת קובץ  </div>
+               </CardTitle> 
             </CardHeader>
             <CardContent>
                 <ImportTable

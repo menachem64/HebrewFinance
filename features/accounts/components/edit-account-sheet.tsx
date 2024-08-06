@@ -26,8 +26,8 @@ export const EditAccountSheet = () => {
     const { isOpen, onClose, id } = useOpenAccount();
 
     const [ConfirmDialog, confirm] = useConfirm(
-      "Are you sure?",
-      "You are about to delete this account"
+      "!זהירות",
+      "הפעולה תמחוק את החשבון הזה"
     )
 
     const accountQuery = useGetAccount(id);
@@ -71,10 +71,11 @@ export const EditAccountSheet = () => {
            <SheetContent className="space-y-4">
              <SheetHeader>
                <SheetTitle>
-                 Edit Account
+                 עריכת חשבון
                </SheetTitle>
                   <SheetDescription>
-                    Edit an existing account                  </SheetDescription>
+                    עריכת החשבון הנוכחי   
+                   </SheetDescription>
               </SheetHeader>
               {isLoading
                 ? (

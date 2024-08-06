@@ -36,11 +36,11 @@ export const NewAccountSheet = () => {
            <SheetContent className="space-y-4">
              <SheetHeader>
                <SheetTitle>
-                 New Account
+                 חשבון חדש
                </SheetTitle>
                   <SheetDescription>
-                     Create a new account to track your transactions
-                  </SheetDescription>
+                  צור חשבון חדש כדי לעקוב אחר הפעולות שלך     
+                 </SheetDescription>
               </SheetHeader>
               <AccountForm onSubmit={onSubmit} disabled={mutation.isPending} defaultValues={{name: ""}}/>
            </SheetContent>

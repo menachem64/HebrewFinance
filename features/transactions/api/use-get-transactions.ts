@@ -24,7 +24,7 @@ export const useGetTransactions = () => {
             });
 
             if (!response.ok) {
-                throw new Error("Failed to fetch accounts");
+                throw new Error("הצגת החשבונות נכשלה");
             }
             
             const { data } = await response.json();

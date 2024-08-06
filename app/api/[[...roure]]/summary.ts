@@ -25,7 +25,7 @@ const app = new Hono()
         const { from, to, accountId } = c.req.valid("query");
 
         if(!auth?.userId) {
-            return c.json({ error: "Unauthorized" }, 401);
+            return c.json({ error: "לא מוגדר" }, 401);
         }
 
         const defaultTo = new Date();
@@ -138,7 +138,7 @@ const app = new Hono()
           const finalCategories = topCategories;
           if (otherCategories.length > 0) {
             finalCategories.push({
-                name: "Other",
+                name: "אחר",
                 value: otherSum,
             });
           } 

@@ -31,7 +31,8 @@ import { useConfirm } from "@/hooks/use-confirm"
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
-  filterKey: string
+  filterKey: string;
+  placeholderFilter: string;
   onDelete: (rows: Row<TData>[]) => void;
   disabled?: boolean;
 }
@@ -40,8 +41,9 @@ export function DataTable<TData, TValue>({
   columns,
   data,
   filterKey,
+  placeholderFilter,
   onDelete,
-  disabled
+  disabled,
 }: DataTableProps<TData, TValue>) {
 const [ConfirmDialog, confirm] = useConfirm(
   "?אתה בטוח",
@@ -74,14 +76,15 @@ const [ConfirmDialog, confirm] = useConfirm(
   return (
     <div>
       <ConfirmDialog/>
-          <div className="flex items-center py-4">
+          <div className="flex items-center py-4 justify-end">
           <Input
-             placeholder={`Filter ${filterKey}...`}
+             placeholder={`חיפוש על פי ${placeholderFilter}...`}
              value={(table.getColumn(filterKey)?.getFilterValue() as string) ?? ""}
              onChange={(event) =>
                table.getColumn(filterKey)?.setFilterValue(event.target.value)
              }
-             className="max-w-sm"
+             className="max-w-sm text-right"
+             dir="rtl"
           />
         {table.getFilteredSelectedRowModel().rows.length > 0 && (
             <Button
@@ -103,13 +106,13 @@ const [ConfirmDialog, confirm] = useConfirm(
         )}
       </div>
     <div className="rounded-md border">
-      <Table>
+      <Table >
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
+            <TableRow key={headerGroup.id} className="">
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id}>
+                  <TableHead key={header.id} className="text-right">
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -125,16 +128,18 @@ const [ConfirmDialog, confirm] = useConfirm(
         <TableBody>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </TableRow>
+              <TableRow key={row.id} data-state={row.getIsSelected() && "selected"} className="">
+  {row.getVisibleCells().map((cell, index) => (
+    <TableCell
+  
+      key={cell.id}
+      className={"text-right"}
+    >
+      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+    </TableCell>
+  ))}
+</TableRow>
+
             ))
           ) : (
             <TableRow>
@@ -148,14 +153,7 @@ const [ConfirmDialog, confirm] = useConfirm(
     </div>
     <div className="flex justify-between py-4">
   <div className="flex space-x-2">
-    <Button
-      variant="outline"
-      size="sm"
-      onClick={() => table.previousPage()}
-      disabled={!table.getCanPreviousPage()}
-    >
-      הקודם
-    </Button>
+  
     <Button
       variant="outline"
       size="sm"
@@ -163,6 +161,14 @@ const [ConfirmDialog, confirm] = useConfirm(
       disabled={!table.getCanNextPage()}
     >
       הבא
+    </Button>
+    <Button
+      variant="outline"
+      size="sm"
+      onClick={() => table.previousPage()}
+      disabled={!table.getCanPreviousPage()}
+    >
+      הקודם
     </Button>
   </div>
 

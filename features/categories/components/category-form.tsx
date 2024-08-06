@@ -63,7 +63,7 @@ export const CategoryForm = ({
                         <FormControl>
                             <Input
                               disabled={disabled}
-                              placeholder="e.g. Food, Travel, etc."
+                              placeholder="...לדוגמא: אוכל, נסיעות, בילוי" 
                               {...field}
                             />
                         </FormControl>
@@ -71,7 +71,7 @@ export const CategoryForm = ({
                   )}
                />
                <Button className="w-full" disabled={disabled}>
-                   {id ? "Save changes" : "Create category"}
+                   {id ? "שמירת שינויים" : "יצירת קטגוריה"}
                </Button>
                {!!id && (<Button
                  type="button"
@@ -81,7 +81,7 @@ export const CategoryForm = ({
                  variant="outline"
                >
                 <Trash className="size-4 mr-2"/>
-                Delete category
+                מחיקת קטגוריה
                </Button>
               )}
 

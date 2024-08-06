@@ -24,7 +24,7 @@ export const useGetSummary = () => {
             });
 
             if (!response.ok) {
-                throw new Error("Failed to fetch summary");
+                throw new Error("הצגת הסיכום נכשלה");
             }
             
             const { data } = await response.json();

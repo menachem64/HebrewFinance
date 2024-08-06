@@ -20,12 +20,12 @@ export const useBulkDeleteAccount = () => {
             return await response.json();
         },
         onSuccess: () => {
-            toast.success("Accounts deleted");
+            toast.success("החשבונות נמחקו");
             queryClient.invalidateQueries({ queryKey: ["accounts"]});
             //TO DO Also invalidate summary
         },
         onError: () => {
-            toast.error("Failed to delete accounts")
+            toast.error("מחיקת החשבונות נכשלה")
         }
     })
     return mutation;

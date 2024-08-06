@@ -82,18 +82,20 @@ const TransactionsPage = () => {
 
     if (transactionsQuery.isLoading) {
         return (
-            <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24">
-                <Card className="broder-none drop-shadow-sm">
-                  <CardHeader>
-                     <Skeleton className="h-8 w-48"/>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="h-[500px] w-full flex items-center justify-center">
-                       <Loader2 className="size-6 text-slate-300 animate-spin"/>
-                    </div>
-                  </CardContent>
-                </Card>
-            </div>
+          <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24">
+          <Card className="border-none drop-shadow-sm">
+            <CardHeader className="grid grid-cols-2">
+              <div /> {/* Empty div to push the Skeleton to the right */}
+              <Skeleton className="h-8 w-48 justify-self-end"/>
+            </CardHeader>
+            <CardContent>
+              <div className="h-[500px] w-full flex items-center justify-center">
+                <Loader2 className="size-6 text-slate-300 animate-spin"/>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+        
         );
     }
 
@@ -115,6 +117,9 @@ const TransactionsPage = () => {
           <Card className="broder-none drop-shadow-sm">
             <CardHeader className="gep-y-2 lg:flex-row lg:items-center lg:justify-between">
                <div className="flex flex-col lg:flex-row gap-y-2 items-center gap-x-2">
+               <CardTitle className="text-xl line-clamp-1">
+                   <div className="flex lg:hidden">היסטורית פעולות</div>
+               </CardTitle> 
                  <Button 
                      onClick={newTransaction.onOpen} 
                      size="sm"
@@ -123,24 +128,24 @@ const TransactionsPage = () => {
                  <Plus className="size-4 mr-2"/>
                    הוספת חדש
                  </Button>
-                 <CardTitle className="text-xl line-clamp-1">
-                   היסטורית פעולות
-               </CardTitle> 
                  <UploadButton onUpload={onUpload}/>
-               </div>
+                 </div>
+                 <CardTitle className="text-xl line-clamp-1">
+                   <div className="hidden lg:flex">היסטורית פעולות</div>
+               </CardTitle> 
             </CardHeader>
             <CardContent>
                <DataTable 
-                  filterKey="payee" 
-                  columns={columns} 
-                  data={transactions}
-                  onDelete={(row) => {
-                    const ids = row.map((r) => r.original.id);
-                    deleteTransactions.mutate({ ids });
-                  }}
-                  disabled={isDisabled}
-                   />
-
+              filterKey="payee"
+              placeholderFilter="מקבל התשלום" 
+              columns={columns}
+              data={transactions}
+              onDelete={(row) => {
+                const ids = row.map((r) => r.original.id);
+                deleteTransactions.mutate({ ids });
+              } }
+              disabled={isDisabled} 
+            />
             </CardContent>
         </Card>
         </div>
