@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { z } from "zod";
 import { parse, subDays } from "date-fns";
+import { he } from 'date-fns/locale';
 
 import { eq, and, inArray, gte, lte, desc, sql } from "drizzle-orm";
 import { createId } from "@paralleldrive/cuid2";
@@ -32,11 +33,11 @@ const app = new Hono()
     const defaultFrom = subDays(defaultTo, 30);
 
     const startDate = from
-       ? parse(from, "yyyy-MM-dd", new Date())
+       ? parse(from, "yyyy-MM-dd", new Date(), { locale: he })
        : defaultFrom;
 
     const endDate = to
-       ? parse(to, "yyyy-MM-dd", new Date())
+       ? parse(to, "yyyy-MM-dd", new Date(), { locale: he })
        : defaultTo;
 
     const data = await db

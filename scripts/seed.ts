@@ -4,6 +4,7 @@ import { format, subDays, eachDayOfInterval } from "date-fns";
 import { config } from "dotenv";
 import { drizzle } from "drizzle-orm/neon-http";
 import { convertAmountToMiliunits } from "@/lib/utils";
+import { he } from "date-fns/locale";
 
 config({ path: ".env.local" });
 
@@ -58,7 +59,7 @@ const generateTransactionsForDay = (day: Date) => {
         const formattedAmount = convertAmountToMiliunits(isExpense ? -amount : amount);
 
         SEED_TRANSACTIONS.push({
-            id: `transaction_${format(day, "yyyy-MM-dd")}_${i}`,
+            id: `transaction_${format(day, "yyyy-MM-dd", { locale: he })}_${i}`,
             accountId: SEED_ACCOUNTS[0].id,
             categoryId: category.id,
             date: day,

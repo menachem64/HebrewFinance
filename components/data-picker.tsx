@@ -11,6 +11,7 @@ import {
     PopoverContent,
     PopoverTrigger
 } from "@/components/ui/popover";
+import { he } from "date-fns/locale";
 
 type Props = {
     value?: Date;
@@ -36,7 +37,7 @@ return (
                )}
             >
                <CalendarIcon className="size-4 mr-2" />
-                 {value ? format(value, "PPP") : <span>Pick a date</span>}
+                 {value ? format(value, "PPP", {locale: he}) : <span>בחר תאריך</span>}
             </Button>
         </PopoverTrigger>
         <PopoverContent>

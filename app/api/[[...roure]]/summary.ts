@@ -4,6 +4,7 @@ import { calculatePercentageChange, fillMissingDays } from "@/lib/utils";
 import { clerkMiddleware, getAuth } from "@hono/clerk-auth";
 import { zValidator } from "@hono/zod-validator";
 import { subDays, parse, differenceInDays } from "date-fns";
+import { he } from "date-fns/locale";
 import { and, desc, eq, gte, lt, lte, sql, sum } from "drizzle-orm";
 import { Hono } from "hono";
 import { z } from "zod";
@@ -32,11 +33,11 @@ const app = new Hono()
         const defaultFrom = subDays(defaultTo, 30);
 
         const startDate = from
-           ? parse(from, "yyyy-MM-dd", new Date())
+           ? parse(from, "yyyy-MM-dd", new Date(), { locale: he })
            : defaultFrom;
 
         const endDate = to
-           ? parse(to, "yyyy-MM-dd", new Date())
+           ? parse(to, "yyyy-MM-dd", new Date(), { locale: he })
            : defaultTo;
 
         const periodLength = differenceInDays(endDate, startDate) + 1;

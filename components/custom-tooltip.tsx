@@ -2,6 +2,7 @@ import { format } from "date-fns";
 
 import { formatCurrency } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
+import { he } from "date-fns/locale";
 
 export const CustomTooltip = ({ active, payload}: any) => {
     if (!active) return null;
@@ -13,7 +14,7 @@ export const CustomTooltip = ({ active, payload}: any) => {
     return (
         <div className="rounded-sm bg-white shadow-sm border overflow-hidden">
             <div className="text-sm p-2 px-3 bg-muted text-muted-foreground">
-                {format(date, "MMM dd, yyyy")}
+                {format(date, "MMM dd, yyyy", {locale: he})}
             </div>
             <Separator />
             <div className="flex flex-col items-end p-2 px-3 space-y-1">
