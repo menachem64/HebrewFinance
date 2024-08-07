@@ -115,10 +115,10 @@ export const EditTransactionSheet = () => {
         <Sheet open={isOpen} onOpenChange={onClose}>
            <SheetContent className="space-y-4">
              <SheetHeader>
-               <SheetTitle>
+               <SheetTitle  className="text-right ml-auto">
                  עריכת פעולה
                </SheetTitle>
-                  <SheetDescription>
+                  <SheetDescription  className="text-right ml-auto">
                    עריכה של הפעולה הנוכחית
                   </SheetDescription>
               </SheetHeader>

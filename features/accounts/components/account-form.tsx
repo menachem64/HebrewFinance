@@ -62,8 +62,9 @@ export const AccountForm = ({
                     <FormItem>
                         <FormControl>
                             <Input
+                              dir="rtl"
                               disabled={disabled}
-                              placeholder="...לדוגמא: בנק, כרטיס אשראי, מזומן"  
+                              placeholder="לדוגמא: בנק, כרטיס אשראי, מזומן"  
                               {...field}
                             />
                         </FormControl>

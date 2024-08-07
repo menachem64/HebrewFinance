@@ -62,8 +62,9 @@ export const CategoryForm = ({
                     <FormItem>
                         <FormControl>
                             <Input
+                               dir="rtl"
                               disabled={disabled}
-                              placeholder="...לדוגמא: אוכל, נסיעות, בילוי" 
+                              placeholder="לדוגמא: אוכל, נסיעות, בילוי" 
                               {...field}
                             />
                         </FormControl>

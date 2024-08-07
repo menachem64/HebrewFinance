@@ -1,4 +1,3 @@
-
 import { categories, insertTransactionSchema } from "@/db/schema";
 import { z } from "zod";
 import { Mutation } from "@tanstack/react-query";
@@ -69,35 +68,33 @@ export const NewTransactionSheet = () => {
     
     return (
         <Sheet open={isOpen} onOpenChange={onClose}>
-           <SheetContent className="space-y-4">
+             <SheetContent className="space-y-4">
              <SheetHeader>
-               <SheetTitle>
+               <SheetTitle className="text-right ml-auto">
                  פעולה חדשה
                </SheetTitle>
-                  <SheetDescription>
-                     הוספת פעולה חדשה
-                  </SheetDescription>
-              </SheetHeader>
-              {isLoading
-                 ? (
-                  <div className="absolute inset-0 flex items-center
-                   justify-center">
-                    <Loader2 className="size-4 text-muted-foreground animate-spin"/>
-                  </div>
-
-                 )
-                 : (
-              <TransactionForm
-                onSubmit={onSubmit}
-                disabled={isPending}
-                categoryOptions={categoryOptions}
-                onCreateCategory={onCreateCategory}
-                accountOptions={accountOptions}
-                onCreateAccount={onCreateAccount}
-                />
-              )
-            }
+               <SheetDescription className="text-right ml-auto">
+                 הוספת פעולה חדשה
+               </SheetDescription>
+             </SheetHeader>
+             {isLoading
+               ? (
+                 <div className="absolute inset-0 flex items-center justify-center">
+                   <Loader2 className="size-4 text-muted-foreground animate-spin" />
+                 </div>
+               )
+               : (
+                 <TransactionForm
+                   onSubmit={onSubmit}
+                   disabled={isPending}
+                   categoryOptions={categoryOptions}
+                   onCreateCategory={onCreateCategory}
+                   accountOptions={accountOptions}
+                   onCreateAccount={onCreateAccount}
+                 />
+               )
+             }
            </SheetContent>
         </Sheet>
-    )
-}
+    );
+};

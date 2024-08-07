@@ -70,10 +70,14 @@ export const EditAccountSheet = () => {
         <Sheet open={isOpen} onOpenChange={onClose}>
            <SheetContent className="space-y-4">
              <SheetHeader>
-               <SheetTitle>
+               <SheetTitle 
+                className="text-right ml-auto"
+                >
                  עריכת חשבון
                </SheetTitle>
-                  <SheetDescription>
+                  <SheetDescription 
+                   className="text-right ml-auto"
+                  >
                     עריכת החשבון הנוכחי   
                    </SheetDescription>
               </SheetHeader>

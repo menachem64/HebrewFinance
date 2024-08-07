@@ -36,8 +36,8 @@ return (
                 !value && "text-muted-foreground"
                )}
             >
-               <CalendarIcon className="size-4 mr-2" />
                  {value ? format(value, "PPP", {locale: he}) : <span>בחר תאריך</span>}
+                 <CalendarIcon className="size-4 mr-2" />
             </Button>
         </PopoverTrigger>
         <PopoverContent>

@@ -35,11 +35,15 @@ export const NewCategorySheet = () => {
         <Sheet open={isOpen} onOpenChange={onClose}>
            <SheetContent className="space-y-4">
              <SheetHeader>
-               <SheetTitle>
-                 קטגוריה חדשב
+               <SheetTitle
+                className="text-right ml-auto"
+                >
+                 קטגוריה חדשה
                </SheetTitle>
-                  <SheetDescription>
-                    יצירת קטגוריה חדשה כדי לארגן את הפעולות בחשבון
+                  <SheetDescription
+                   className="text-right ml-auto"
+                   >
+                    יצירת קטגוריה חדשה על מנת לארגן את הפעולות בחשבון
                   </SheetDescription>
               </SheetHeader>
               <CategoryForm onSubmit={onSubmit} disabled={mutation.isPending} defaultValues={{name: ""}}/>

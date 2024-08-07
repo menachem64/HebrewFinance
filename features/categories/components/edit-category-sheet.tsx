@@ -70,10 +70,14 @@ export const EditCategorySheet = () => {
         <Sheet open={isOpen} onOpenChange={onClose}>
            <SheetContent className="space-y-4">
              <SheetHeader>
-               <SheetTitle>
+               <SheetTitle 
+                className="text-right ml-auto"
+                >
                  עריכת קטגוריה
                </SheetTitle>
-                  <SheetDescription>
+                  <SheetDescription
+                   className="text-right ml-auto"
+                   >
                     עריכת הקטגוריה הנוכחית             
                   </SheetDescription>
               </SheetHeader>

@@ -1,4 +1,4 @@
-import { nullable, z } from "zod";
+import { z } from "zod";
 import { Trash } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,10 +15,10 @@ import {
     FormMessage
 } from "@/components/ui/form";
 import { Select } from "@/components/select";
-import { DatePicker } from "@/components/data-picker";
 import { Textarea } from "@/components/ui/textarea";
 import { AmountInput } from "@/components/amount-input";
 import { convertAmountToMiliunits } from "@/lib/utils";
+import { DatePicker } from "@/components/data-picker";
 
 const formSchema = z.object({
     date: z.coerce.date(),
@@ -36,7 +36,6 @@ const apiSchema = insertTransactionSchema.omit({
 type FormValues = z.input<typeof formSchema>;
 type ApiFormValues = z.input<typeof apiSchema>;
 
-
 type Props = {
     id?: string;
     defaultValues?: FormValues;
@@ -47,7 +46,6 @@ type Props = {
     categoryOptions: { label: string; value: string; }[];
     onCreateAccount: (name: string) => void;
     onCreateCategory: (name: string) => void;
-
 };
 
 export const TransactionForm = ({
@@ -71,158 +69,150 @@ export const TransactionForm = ({
         const amountInMiliunits = convertAmountToMiliunits(amount);
         
         onSubmit({
-             ...values,
-             amount: amountInMiliunits,
-        })
+            ...values,
+            amount: amountInMiliunits,
+        });
     };
 
     const handleDelete = () => {
-        onDelete?.()
+        onDelete?.();
     };
 
     return (
         <Form {...form}>
-           <form
-              onSubmit={form.handleSubmit(handleSubmit)}
-              className="space-y-4 pt-4"
-              >
+            <div dir="rtl">
+                <form
+                    onSubmit={form.handleSubmit(handleSubmit)}
+                    className="space-y-4 pt-4"
+                    dir="rtl"
+                >
 
-                <FormField
-                  name="date"
-                  control={form.control}
-                  render={({ field }) => (
-                    <FormItem>
-                        <FormControl>
-                            <DatePicker
-                               value={field.value}
-                               onChange={field.onChange}
-                               disabled={disabled}
-                               />
-                        </FormControl>
-                    </FormItem>
-                  )}
-               />
+                    <FormField
+                        name="date"
+                        control={form.control}
+                        render={({ field }) => (
+                            <FormItem>
+                             <FormLabel>תאריך</FormLabel>
+                                <FormControl>
+                                    <DatePicker
+                                        value={field.value}
+                                        onChange={field.onChange}
+                                        disabled={disabled}
+                                    />
+                                </FormControl>
+                            </FormItem>
+                        )}
+                    />
 
-               <FormField
-                  name="accountId"
-                  control={form.control}
-                  render={({ field }) => (
-                    <FormItem>
-                        <FormLabel>
-                            חשבון
-                        </FormLabel>
-                        <FormControl>
-                            <Select
-                               placeholder="Select an account"
-                               options={accountOptions}
-                               onCreate={onCreateAccount}
-                               value={field.value}
-                               onChange={field.onChange}
-                               disabled={disabled}
-                               />
-                        </FormControl>
-                    </FormItem>
-                  )}
-               />
+                    <FormField
+                        name="accountId"
+                        control={form.control}
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>חשבון</FormLabel>
+                                <FormControl>
+                                    <Select
+                                        placeholder="בחירת חשבון"
+                                        options={accountOptions}
+                                        onCreate={onCreateAccount}
+                                        value={field.value}
+                                        onChange={field.onChange}
+                                        disabled={disabled}
+                                    />
+                                </FormControl>
+                            </FormItem>
+                        )}
+                    />
 
-               <FormField
-                  name="categoryId"
-                  control={form.control}
-                  render={({ field }) => (
-                    <FormItem>
-                        <FormLabel>
-                           קטגוריה
-                        </FormLabel>
-                        <FormControl>
-                            <Select
-                               placeholder="Select an category"
-                               options={categoryOptions}
-                               onCreate={onCreateCategory}
-                               value={field.value}
-                               onChange={field.onChange}
-                               disabled={disabled}
-                               />
-                        </FormControl>
-                    </FormItem>
-                  )}
-               />
+                    <FormField
+                        name="categoryId"
+                        control={form.control}
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>קטגוריה</FormLabel>
+                                <FormControl>
+                                    <Select
+                                        placeholder="בחירת קטגוריה"
+                                        options={categoryOptions}
+                                        onCreate={onCreateCategory}
+                                        value={field.value}
+                                        onChange={field.onChange}
+                                        disabled={disabled}
+                                    />
+                                </FormControl>
+                            </FormItem>
+                        )}
+                    />
 
-              <FormField
-                  name="payee"
-                  control={form.control}
-                  render={({ field }) => (
-                    <FormItem>
-                        <FormLabel>
-                           מקבל התשלום
-                        </FormLabel>
-                        <FormControl>
-                            <Input
-                               placeholder="הוסף מקבל תשלום"
-                               disabled={disabled}
-                               {...field}
-                               />
-                        </FormControl>
-                    </FormItem>
-                  )}
-               />
+                    <FormField
+                        name="payee"
+                        control={form.control}
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>מקבל התשלום</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        placeholder="הוסף מקבל תשלום"
+                                        disabled={disabled}
+                                        {...field}
+                                    />
+                                </FormControl>
+                            </FormItem>
+                        )}
+                    />
 
-               <FormField
-                  name="amount"
-                  control={form.control}
-                  render={({ field }) => (
-                    <FormItem>
-                        <FormLabel>
-                           סכום
-                        </FormLabel>
-                        <FormControl>
-                            <AmountInput
-                               {...field}
-                               disabled={disabled}
-                               placeholder="0.00"
-                               />
-                        </FormControl>
-                    </FormItem>
-                  )}
-               />
+                    <FormField
+                        name="amount"
+                        control={form.control}
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>סכום</FormLabel>
+                                <FormControl>
+                                    <AmountInput
+                                        {...field}
+                                        disabled={disabled}
+                                        placeholder="0.00"
+                                    />
+                                </FormControl>
+                            </FormItem>
+                        )}
+                    />
 
-                <FormField
-                  name="notes"
-                  control={form.control}
-                  render={({ field }) => (
-                    <FormItem>
-                        <FormLabel>
-                        הערות  
-                        </FormLabel>
-                        <FormControl>
-                            <Textarea
-                               {...field}
-                               value={field.value ?? ""}
-                               disabled={disabled}
-                               placeholder="...כתיבת הערה" 
-                               />
-                        </FormControl>
-                    </FormItem>
-                  )}
-               />
+                    <FormField
+                        name="notes"
+                        control={form.control}
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>הערות</FormLabel>
+                                <FormControl>
+                                    <Textarea
+                                        {...field}
+                                        value={field.value ?? ""}
+                                        disabled={disabled}
+                                        placeholder="כתיבת הערה"
+                                    />
+                                </FormControl>
+                            </FormItem>
+                        )}
+                    />
 
-               <Button className="w-full" disabled={disabled}>
-                   {id ? "שמירת שינויים" : "יצירת שינויים"}
-               </Button>
-               {!!id && (<Button
-                 type="button"
-                 disabled={disabled}
-                 onClick={handleDelete}
-                 className="w-full"
-                 variant="outline"
-               >
-                <Trash className="size-4 mr-2"/>
-               מחיקת פעולות
-               </Button>
-              )}
-
-           </form>
+                    <Button className="w-full" disabled={disabled}>
+                        {id ? "שמירת שינויים" : "יצירת שינויים"}
+                    </Button>
+                    {!!id && (
+                        <Button
+                            type="button"
+                            disabled={disabled}
+                            onClick={handleDelete}
+                            className="w-full"
+                            variant="outline"
+                        >
+                            <Trash className="size-4 mr-2" />
+                            מחיקת פעולות
+                        </Button>
+                    )}
+                </form>
+            </div>
         </Form>
-       
-    )
-
-}
+    );
+};

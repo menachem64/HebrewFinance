@@ -35,10 +35,14 @@ export const NewAccountSheet = () => {
         <Sheet open={isOpen} onOpenChange={onClose}>
            <SheetContent className="space-y-4">
              <SheetHeader>
-               <SheetTitle>
+               <SheetTitle
+                className="text-right ml-auto"
+                >
                  חשבון חדש
                </SheetTitle>
-                  <SheetDescription>
+                  <SheetDescription
+                   className="text-right ml-auto"
+                   >
                   צור חשבון חדש כדי לעקוב אחר הפעולות שלך     
                  </SheetDescription>
               </SheetHeader>
