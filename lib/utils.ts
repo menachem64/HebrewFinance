@@ -16,12 +16,13 @@ export function convertAmountToMiliunits(amount: number) {
 };
 
 export function formatCurrency(value: number) {
-  return Intl.NumberFormat("en-US", {
+  return Intl.NumberFormat("he-IL", {
     style: "currency",
-    currency: "USD",
+    currency: "ILS",
     minimumFractionDigits: 2,
   }).format(value);
 };
+
 
 export function calculatePercentageChange(
   current: number,
@@ -95,7 +96,7 @@ export function formatPercentage(
     addPrefix: false,
   },
 ) {
-  const result = new Intl.NumberFormat("en-US", {
+  const result = new Intl.NumberFormat("he-IL", {
     style: "percent",
   }).format(value / 100);
 
