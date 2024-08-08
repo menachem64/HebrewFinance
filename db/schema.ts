@@ -54,4 +54,21 @@ export const transactionsRelations = relations(transactions, ({ one }) => ({
 
 export const insertTransactionSchema = createInsertSchema(transactions, {
     date: z.coerce.date(),
-})
+});
+
+const baseSchema = insertTransactionSchema.omit({
+    categoryId: true,
+    accountId: true,
+});
+
+export const extendedSchema = baseSchema.extend({
+    account: z.object({
+        label: z.string(),
+        value: z.string(),
+    }),
+    category: z.object({
+        label: z.string(),
+        value: z.string(),
+    }).nullable().optional(),
+});
+

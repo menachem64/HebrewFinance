@@ -18,8 +18,9 @@ import { Select } from "@/components/select";
 import { Textarea } from "@/components/ui/textarea";
 import { AmountInput } from "@/components/amount-input";
 import { convertAmountToMiliunits } from "@/lib/utils";
-import { DatePicker } from "@/components/data-picker";
+import { DatePicker } from "@/components/date-picker";
 
+// הגדרת הסכמות
 const formSchema = z.object({
     date: z.coerce.date(),
     accountId: z.string(),
@@ -29,8 +30,22 @@ const formSchema = z.object({
     notes: z.string().nullable().optional(),
 });
 
-const apiSchema = insertTransactionSchema.omit({
+const apiSchemaWithoutId = insertTransactionSchema.omit({
     id: true,
+    categoryId: true,
+    accountId: true
+});
+
+// הוספת שדות חדשים 'description' ו-'transactionType'
+const apiSchema = apiSchemaWithoutId.extend({
+    account: z.object({
+        label: z.string(),
+        value: z.string()
+    }),
+    category: z.object({
+        label: z.string(),
+        value: z.string()
+    }).nullable().optional(),
 });
 
 type FormValues = z.input<typeof formSchema>;
@@ -67,10 +82,17 @@ export const TransactionForm = ({
     const handleSubmit = (values: FormValues) => {
         const amount = parseFloat(values.amount);
         const amountInMiliunits = convertAmountToMiliunits(amount);
-        
+        console.log("FormValues:", values);
+        const accountObject = accountOptions.find(option => option.value === values.accountId);
+        const categoryObject = categoryOptions.find(option => option.value === values.categoryId);
+
         onSubmit({
-            ...values,
             amount: amountInMiliunits,
+            date: values.date,
+            account: accountObject!,
+            category: categoryObject,
+            payee: values.payee,
+            notes: values.notes,
         });
     };
 
@@ -86,13 +108,12 @@ export const TransactionForm = ({
                     className="space-y-4 pt-4"
                     dir="rtl"
                 >
-
                     <FormField
                         name="date"
                         control={form.control}
                         render={({ field }) => (
                             <FormItem>
-                             <FormLabel>תאריך</FormLabel>
+                                <FormLabel>תאריך</FormLabel>
                                 <FormControl>
                                     <DatePicker
                                         value={field.value}
@@ -197,7 +218,7 @@ export const TransactionForm = ({
                     />
 
                     <Button className="w-full" disabled={disabled}>
-                        {id ? "שמירת שינויים" : "יצירת שינויים"}
+                        {id ? "שמירת שינויים" : "שמירת פעולה"}
                     </Button>
                     {!!id && (
                         <Button
@@ -207,8 +228,8 @@ export const TransactionForm = ({
                             className="w-full"
                             variant="outline"
                         >
-                            <Trash className="size-4 mr-2" />
                             מחיקת פעולות
+                            <Trash className="size-4 mr-2" />
                         </Button>
                     )}
                 </form>

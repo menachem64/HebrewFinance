@@ -44,22 +44,25 @@ export const Actions = ({ id }: Props) => {
                        <MoreHorizontal className="size-4"/>
                     </Button>
                 </DropdownMenuTrigger>
-                 <DropdownMenuContent align="end">
-                    <DropdownMenuItem
-                       disabled={deleteMutation.isPending}
-                       onClick={() => onOpen(id)}
-                    >
-                        <Edit className="size-4 mr-2"/>
-                        עריכה
-                    </DropdownMenuItem>
-                    <DropdownMenuItem
-                       disabled={deleteMutation.isPending}
-                       onClick={handleDelete}
-                    >
-                        <Trash className="size-4 mr-2"/>
-                        מחיקה
-                    </DropdownMenuItem>
-                 </DropdownMenuContent>
+                <DropdownMenuContent align="end" className="text-right">
+    <DropdownMenuItem
+        disabled={deleteMutation.isPending}
+        onClick={() => onOpen(id)}
+        className="flex flex-row-reverse justify-between"
+    >
+        עריכה
+        <Edit className="size-4 mr-2" /> 
+    </DropdownMenuItem>
+    <DropdownMenuItem
+        disabled={deleteMutation.isPending}
+        onClick={handleDelete}
+        className="flex flex-row-reverse justify-between"
+    >
+        מחיקה
+        <Trash className="size-4 mr-2" /> 
+    </DropdownMenuItem>
+</DropdownMenuContent>
+
             </DropdownMenu>
         </>
     )

@@ -9,7 +9,8 @@ import { zValidator } from "@hono/zod-validator";
 import { clerkMiddleware, getAuth } from "@hono/clerk-auth";
 
 import { db } from "@/db/drizzle"
-import { transactions, insertTransactionSchema, accounts, categories } from "@/db/schema";
+import { transactions, insertTransactionSchema, accounts, categories, extendedSchema } from "@/db/schema";
+import { convertAmountFromMiliunits } from "@/lib/utils";
 
 
 const app = new Hono()
@@ -113,9 +114,11 @@ const app = new Hono()
   )
   .post("/",
     clerkMiddleware(),
-    zValidator("json", insertTransactionSchema.omit({
+    zValidator("json",
+      extendedSchema.omit({
         id: true,
-    })),
+    }),
+  ),
 
   async (c) => {
     const auth = getAuth(c);
@@ -127,11 +130,39 @@ const app = new Hono()
 
     const [data] = await db.insert(transactions).values({
         id: createId(),
-        ...values,
+        date: values.date,
+        amount: values.amount,
+        payee: values.payee,
+        notes: values.notes,
+        accountId: values.account.value,
+        categoryId: values.category?.value
     }).returning();
-    
-    return c.json({ data });
-  })
+
+        //post data at google sheet
+        const dataForSheet = {
+          date: values.date,
+          amount: convertAmountFromMiliunits(data.amount),
+          payee: values.payee,
+          notes: values.notes,
+          category: values.category?.label,
+          accounts: values.account.label
+        };
+
+        const responseFromSheet = await fetch("https://sheet.best/api/sheets/d3890db6-508d-4cf7-92f8-9363bf079b7f", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+              // אם יש צורך, ניתן להוסיף כאן עוד headers
+          },
+          body: JSON.stringify(dataForSheet)
+      });
+  
+      const result = await responseFromSheet.json(); // במידה ואתה רוצה לעבד את התשובה מהשרת השני
+      console.log( "responseFromSheet:", result );
+      console.log("transactionData:",{ data })
+
+      return c.json({ data }); 
+    })
   .post(
     "/bulk-create",
     clerkMiddleware(),
