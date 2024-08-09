@@ -66,6 +66,42 @@ const app = new Hono()
     )
     .orderBy(desc(transactions.date));
 
+    //get from google sheet
+    // יצירת אובייקט עם הפרמטרים עבור הבקשה
+// const queryParams = {
+//   accountId: accountId || undefined,
+//   userId: auth.userId,
+//   startDate: startDate,
+//   endDate: endDate,
+// };
+
+// // יצירת URL עם הפרמטרים מהשאילתה
+// const url = new URL("https://sheet.best/api/sheets/d3890db6-508d-4cf7-92f8-9363bf079b7f");
+
+// // הוספת הפרמטרים ל-URL
+// Object.keys(queryParams).forEach(key => {
+//   if (queryParams[key] !== undefined) {
+//       url.searchParams.append(key, queryParams[key]);
+//   }
+// });
+
+// // שליחת בקשת GET ל-URL שנוצר
+// const responseFromSheet = await fetch(url, {
+//   method: "GET",
+//   headers: {
+//       "Content-Type": "application/json",
+//       // אם יש צורך, ניתן להוסיף כאן עוד headers
+//   }
+// });
+
+// // קריאת התגובה מהבקשה
+// const data = await responseFromSheet.json();
+
+// console.log(data);
+
+
+//     const combinedData = [data, ...dataFromSheet];
+
     return c.json({ data });
   })
   .get(
@@ -108,7 +144,7 @@ const app = new Hono()
     if (!data) {
       return c.json({ error: "לא נמצא" }, 404);
     }
-
+    
     return c.json({ data });
   }
   )
@@ -123,10 +159,16 @@ const app = new Hono()
   async (c) => {
     const auth = getAuth(c);
     const values = c.req.valid("json");
+    // const date = parse(values.date.toISOString(), 
+    // "yyyy-MM-dd", new Date(), { locale: he });
+    // const dateToString = date.toISOString()
+
 
     if (!auth?.userId) {
         return c.json({ error: "לא מוגדר"}, 401)
     }
+
+
 
     const [data] = await db.insert(transactions).values({
         id: createId(),
@@ -140,12 +182,14 @@ const app = new Hono()
 
         //post data at google sheet
         const dataForSheet = {
-          date: values.date,
-          amount: convertAmountFromMiliunits(data.amount),
-          payee: values.payee,
-          notes: values.notes,
-          category: values.category?.label,
-          accounts: values.account.label
+          accountId: values.account.value,
+          categoryId: values.category?.value,
+          יום:  values.date,
+          סכום: convertAmountFromMiliunits(data.amount),
+          מקבל_התשלום: values.payee,
+          הערות: values.notes,
+          קטגוריה: values.category?.label,
+          חשבון: values.account.label
         };
 
         const responseFromSheet = await fetch("https://sheet.best/api/sheets/d3890db6-508d-4cf7-92f8-9363bf079b7f", {
